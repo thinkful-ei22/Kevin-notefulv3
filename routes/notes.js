@@ -17,7 +17,10 @@ router.get('/', (req, res, next) => {
       if (searchTerm) {
         return Note.find(
           {$or:
-            [{title: {$regex: searchTerm}},{content: {$regex: searchTerm}}]
+            [
+              {title: {$regex: searchTerm, $options: 'i'}},
+              {content: {$regex: searchTerm, $options: 'i'}}
+            ]
           })
           .sort('_id');
       }
